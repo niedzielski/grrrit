@@ -6,7 +6,7 @@ function getCurrentTabUrl(callback: (url: string) => void) {
   chrome.tabs.query(queryInfo, tabs => {
     const url = tabs[0].url
     // todo: filter url here.
-    if (url) callback(url)
+    if (url) callback(new URL(url).host)
   })
 }
 

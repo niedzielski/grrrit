@@ -2,7 +2,7 @@ import {changeBackgroundColor, getSavedBackgroundColor} from './common'
 
 chrome.webNavigation.onCompleted.addListener(
   ({url}) => {
-    getSavedBackgroundColor(url, color => {
+    getSavedBackgroundColor(new URL(url).host, color => {
       if (color) {
         changeBackgroundColor(color)
       }
