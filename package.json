@@ -1,0 +1,42 @@
+{
+  "name": "grrrit",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/niedzielski/grrrit",
+  "repository": "github:niedzielski/grrrit",
+  "bugs": "https://github.com/niedzielski/grrrit/issues",
+  "license": "GPL-3.0",
+  "scripts": {
+    "start": "nodemon -q -i build -e ts,json,png,html --exec 'run-p -s build && echo 👍'",
+    "build": "TS_NODE_TYPE_CHECK=1 webpack",
+    "lint": "eslint --cache --max-warnings 0 --report-unused-disable-directives --ext .ts .",
+    "style": "prettier './**/*.{md,json}'",
+    "format": "run-p -s 'lint -- --fix' 'style -- --write'",
+    "test": "run-p -s build lint 'style -- -l'"
+  },
+  "engines": {
+    "node": "9.2.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.58",
+    "@types/clean-webpack-plugin": "0.1.0",
+    "@types/copy-webpack-plugin": "4.0.1",
+    "@types/node": "9.3.0",
+    "clean-webpack-plugin": "0.1.17",
+    "copy-webpack-plugin": "4.3.1",
+    "eslint": "4.16.0",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-prettier": "2.5.0",
+    "nodemon": "1.14.11",
+    "npm-run-all": "4.1.2",
+    "pre-commit": "1.2.2",
+    "prettier": "1.10.2",
+    "ts-loader": "3.3.1",
+    "ts-node": "4.1.0",
+    "typescript": "2.6.2",
+    "typescript-eslint-parser": "12.0.0",
+    "webpack": "3.10.0",
+    "webpack-dev-server": "2.11.1"
+  }
+}
