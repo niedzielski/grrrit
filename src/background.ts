@@ -1,4 +1,4 @@
-import {setBackgroundColor, getBackgroundColor} from './common'
+import {setBackgroundColor, getBackgroundColor, HOST} from './common'
 
 chrome.webNavigation.onCompleted.addListener(
   ({url}) => {
@@ -9,5 +9,5 @@ chrome.webNavigation.onCompleted.addListener(
     })
   },
   // this should be kept in sync with the manifest
-  {url: [{hostContains: 'gerrit'}]}
+  {url: [{hostPrefix: HOST}]}
 )

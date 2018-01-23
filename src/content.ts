@@ -1,12 +1,12 @@
-import {setBackgroundColor, getBackgroundColor} from './common'
+import {setBackgroundColor, getBackgroundColor, HOST} from './common'
 
 function getCurrentTabUrl(): Promise<string | undefined> {
   return new Promise(resolve => {
     const queryInfo = {active: true, currentWindow: true}
     chrome.tabs.query(queryInfo, tabs => {
       const url = tabs[0].url
-      // todo: filter url here.
-      resolve(url && new URL(url).host)
+      const host = url && new URL(url).host
+      resolve(host === HOST ? host : undefined)
     })
   })
 }

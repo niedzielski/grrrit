@@ -1,3 +1,6 @@
+// This must be manually kept in sync with the manifest.
+export const HOST = 'gerrit.wikimedia.org'
+
 export function getBackgroundColor(url: string): Promise<string | undefined> {
   return new Promise(resolve => {
     chrome.storage.sync.get(url, items =>

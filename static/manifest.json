@@ -15,15 +15,8 @@
     "webNavigation",
     "*://gerrit.wikimedia.org/*"
   ],
-
   "content_scripts": [
-    {
-      "matches": ["https://*/*"],
-      "include_globs": ["*://*.gerrit.*/*", "*://gerrit.*/*"],
-      "js": ["content.js"]
-    }
+    {"matches": ["*://gerrit.wikimedia.org/*"], "js": ["content.js"]}
   ],
-  "background": {
-    "scripts": ["background.js"]
-  }
+  "background": {"scripts": ["background.js"]}
 }
