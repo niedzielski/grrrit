@@ -1,12 +1,13 @@
-import {changeBackgroundColor, getSavedBackgroundColor} from './common'
+import {setBackgroundColor, getBackgroundColor} from './common'
 
-function getCurrentTabUrl(callback: (url: string) => void) {
-  const queryInfo = {active: true, currentWindow: true}
-
-  chrome.tabs.query(queryInfo, tabs => {
-    const url = tabs[0].url
-    // todo: filter url here.
-    if (url) callback(new URL(url).host)
+function getCurrentTabUrl(): Promise<string | undefined> {
+  return new Promise(resolve => {
+    const queryInfo = {active: true, currentWindow: true}
+    chrome.tabs.query(queryInfo, tabs => {
+      const url = tabs[0].url
+      // todo: filter url here.
+      resolve(url && new URL(url).host)
+    })
   })
 }
 
@@ -15,19 +16,22 @@ function saveBackgroundColor(url: string, color: string) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  getCurrentTabUrl(url => {
-    const dropdown = <HTMLSelectElement>document.getElementById('dropdown')
-
-    getSavedBackgroundColor(url, color => {
+  getCurrentTabUrl()
+    .then(
+      url => (url ? getBackgroundColor(url).then(color => ({url, color})) : {})
+    )
+    .then(({url, color}: {url?: string; color?: string}) => {
+      const dropDown = <HTMLSelectElement>document.getElementById('dropDown')
       if (color) {
-        changeBackgroundColor(color)
-        dropdown.value = color
+        setBackgroundColor(color)
+        dropDown.value = color
+      }
+
+      if (url) {
+        dropDown.addEventListener('change', () => {
+          setBackgroundColor(dropDown.value)
+          saveBackgroundColor(url, dropDown.value)
+        })
       }
     })
-
-    dropdown.addEventListener('change', () => {
-      changeBackgroundColor(dropdown.value)
-      saveBackgroundColor(url, dropdown.value)
-    })
-  })
 })
