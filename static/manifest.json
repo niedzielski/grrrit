@@ -9,9 +9,13 @@
     "default_icon": "icon.png",
     "default_popup": "content.html"
   },
-  "permissions": ["storage", "webNavigation", "*://gerrit.wikimedia.org/*"],
+  "permissions": [
+    "storage",
+    "webNavigation",
+    "*://gerrit.wikimedia.org/r/#/c/*"
+  ],
   "content_scripts": [
-    {"matches": ["*://gerrit.wikimedia.org/*"], "js": ["content.js"]}
+    {"matches": ["*://gerrit.wikimedia.org/r/#/c/*"], "js": ["content.js"]}
   ],
   "background": {"scripts": ["background.js"]}
 }
